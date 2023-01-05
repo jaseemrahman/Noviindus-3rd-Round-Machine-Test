@@ -1,0 +1,231 @@
+{% include "header.html" %}
+
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Testimonial View</h1>
+                <a href="{% url 'add.new' %}" class="btn btn-danger btn-pill">Add <i class="fa fa-plus"></i></a>
+
+            </div>
+            <!-- PAGE-HEADER END -->
+
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Testimonial Table</h3>
+                        </div>
+
+                        {% comment %} <div class="topnav">
+                            
+                            <form name="myform" method="GET" action="{% url 'search' %}"> 
+                                {% csrf_token %}
+                                <input type="text" name="search" placeholder="Search..">
+                    
+                            </form>
+                          </div> {% endcomment %}
+                        
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <div class="table-responsive">
+                                    <table class="table border text-nowrap text-md-nowrap table-hover mb-0" id="table5">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl No</th>
+                                                <th>Image</th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Section</th>
+
+
+
+                                                <th>Satus</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- TABLE DETAILS -->
+                                            {% for testimonial in testimonials %}
+                                            <tr>
+                                                <td>{{testimonial.id}}</td>
+                                                <td>
+                                                    <img class="d-block img-fluid br-5 img-td"
+                                                        src="{{testimonial.image.url}}" alt="{{testimonial.title}}">
+                                                </td>
+                                                <td> {{testimonial.title}}</td>
+                                              
+                                                <td>
+                                                    {% comment %} <a class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#description">
+                                                        <i class="side-menu__icon fe fe-eye text-white"></i>
+                                                    </a> {% endcomment %}
+                                                        {{testimonial.description}}
+                                                </td>
+                                                <td>
+                                                    {{testimonial.name}}
+                                                </td>
+                                                <td>
+                                                    {{testimonial.position}}
+                                                </td>
+                                                <td>{{testimonial.section}}</td>
+                                                <td>
+                                                    {{testimonial.status}}
+                                                    {% comment %} <a href=""><span class="btn btn-success">Active</span></a>
+                                                    <a href=""> <span class="btn btn-danger">Inactive</span></a> {% endcomment %}
+                                                </td>
+                                                <td>
+                                                    <a class=" btn btn-info" href="{% url 'testimonial.update' testimonial.id %}">
+                                                        <i class="side-menu__icon fe fe-edit"></i>
+                                                    </a>
+
+                                                    <a href="{% url 'testimonial.delete' testimonial.id %}" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#modaldemo5">
+                                                    <i class="side-menu__icon fe fe-trash text-white"></i>
+                                                </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            <!-- TABLE DETAILS END -->
+                                        </tbody>
+                                    </table>
+{% if testimonials.has_other_pages %}
+  <ul class="pagination">
+    {% if testimonials.has_previous %}
+      <li><a href="?page={{ testimonials.previous_page_number }}">PREV</a></li>
+    {% else %}
+      <li class="disabled"><span>PREV</span></li>
+    {% endif %}
+    {% for i in testimonials.paginator.page_range %}
+      {% if testimonials.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if testimonials.has_next %}
+      <li><a href="?page={{ testimonials.next_page_number }}">NEXT</a></li>
+    {% else %}
+      <li class="disabled"><span>NEXT</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+    {% comment %} {% if testimonial %}
+    
+        <img class="d-block img-fluid br-5 img-td"
+            src="{{testimonial.image.url}}" alt="{{testimonial.title}}">
+{% endif %} {% endcomment %}
+
+                                </div>
+                                <div class="card-body">
+                                    {% if testimonials.has_other_pages %}
+                                    <ul class="pagination">
+                                        {% if testimonials.has_previous %}
+                                        <li class="page-item page-prev">
+                                        <a class="page-link" href="?page={{ testimonials.previous_page_number }}" tabindex="-1">Prev</a></li>
+                                        {% else %}
+
+                                        <li class="page-item page-prev">
+                                            <a class="page-link" href="" tabindex="-1">Prev</a>
+                                        </li>
+                                        {% endif %}
+                                        {% for i in testimonials.paginator.page_range %}
+                                        {% if testimonials.number == i %}
+                                        <li class="page-item active"><a class="page-link" href="">1</a></li>
+                                      {% else %}
+                                        {% comment %} <li class="page-item active"><a class="page-link" href="">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="">4</a></li>
+                                        <li class="page-item page-next">
+                                            <a class="page-link" href="">Next</a>
+                                        </li>
+                                    </ul> 
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>{% endcomment %}
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% if testimonials.has_next %}
+                                  <li class="page-item active"><a class="page-link" href="?page={{ i }}">2</a></li>
+                                    {% comment %} <li><a href="?page={{ testimonials.next_page_number }}">&raquo;</a></li> {% endcomment %}
+                                  {% else %}
+                                    {% comment %} <li class="disabled"><span>&raquo;</span></li> {% endcomment %}
+                                    <a class="page-link" href="">Next</a>
+                                  {% endif %}
+                                </ul>
+                              {% endif %}
+                              
+                                    <!-- pagination-wrapper -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- CONTAINER END -->
+        </div>
+    </div>
+    <!--app-content close-->
+
+
+
+    <div class="modal  fade" id="modaldemo5" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered text-center" role="document">
+            <div class="modal-content ">
+    <form method="post" action="" class="" id="modal_form">
+        {% csrf_token %}
+                <div class="modal-body">
+                    <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span
+                            aria-hidden="true">&times;</span></button>
+                    <i class="icon icon-close fs-70 text-danger lh-1 my-5 d-inline-block"></i>
+                    <h4 class="text-danger">Are You Sure Do You Want To Delete ?</h4>
+                    <p class="mg-b-20 mg-x-20">Item Will be Deleted Permanently</p>
+                   
+                </div>
+                <div class="modal-footer justify-content-center">
+                <button class="btn btn-success">Yes</button>
+                    <button aria-label="Close" class="btn btn-danger pd-x-25" data-bs-dismiss="modal">Cancel</button>
+
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MESSAGE MODAL -->
+    <div class="modal  fade" id="description" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered text-center" role="document">
+            <div class="modal-content ">
+
+                <div class="modal-body">
+                    <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span
+                            aria-hidden="true">&times;</span></button>
+
+                    <h4 class="text-primary">Description</h4>
+                    <p class="mg-b-20 mg-x-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    {% include "footer.html" %}

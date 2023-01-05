@@ -1,0 +1,154 @@
+
+{% include "header.html" %}
+
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Testimonial Create</h1>
+                <a href="{% url 'view' %}" class="btn btn-danger btn-pill">View</a>
+
+            </div>
+            <!-- PAGE-HEADER END -->
+
+
+
+            <form method="post" class="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <!-- IMAGE UPLOADER -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Image Upload</h3>
+                            </div>
+                            <div class=" card-body">
+                                <div class="row mb-5">
+                                    <div class="col-lg-12 col-sm-12 mb-4 mb-lg-0">
+                                        {{form.image}}
+                                        {% comment %} <input type="file" class="dropify" data-bs-height="180" id="id_image"/> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- IMAGE UPLOADER end -->
+
+                    <!-- DETAILS START -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Testimonial Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <!--  Title -->
+                                    <div class="col-sm-6 col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label" id="title"> Title</label>
+                                            {{form.title}}
+                                            {% comment %} <input type="text" class="form-control" placeholder=" Title" id="title"> {% endcomment %}
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label" id="id_description">Description</label>
+                                            {{form.description}}
+                                            {% comment %} <div id="summernote">
+                                                
+                                            </div> {% endcomment %}
+                                        </div>
+                                    </div>
+                                    <!--  Name -->
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" id="id_name">Name</label>
+                                            {{form.name}}
+                                            {% comment %} <input type="text" class="form-control" placeholder="Name" id="id_name"> {% endcomment %}
+                                        </div>
+                                    </div>
+
+                                    <!--  Position -->
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" id="id_position">Position</label>
+                                            {{form.position}}
+                                            {% comment %} <input type="text" class="form-control" placeholder="Position" id="id_position"> {% endcomment %}
+                                        </div>
+                                    </div>
+                                    <!-- status -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"  id="id_section">Testimonial For</label>
+                                            {{form.section}}
+                                            {% comment %} <select class="form-control select2" data-placeholder="Status"  id="id_section">
+                                                <option value="Slider">Slider</option>
+                                                <option value="Box">Box</option>
+                                            </select> {% endcomment %}
+                                        </div>
+                                    </div>
+
+                                    <!-- status -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" id="id_status">Status</label>
+                                            {{form.status}}
+                                            {% comment %} <select class="form-control select2" data-placeholder="Status" id="id_status">
+                                                <option value="Enable">ACTIVE</option>
+                                                <option value="Disable">INACTIVE</option>
+                                            </select> {% endcomment %}
+                                        </div>
+                                    </div>
+                                    <!-- SUBMIT START -->
+                                    <div class="col-lg-12 ">
+                                        <div class="mt-5">
+                                            <a href="{% url 'view'%}" class="btn btn-default btn-pill">Cancel</a>
+                                            {% comment %} <a href="" class="btn btn-warning btn-pill">Submit</a> {% endcomment %}
+                                            <button class="btn btn-warning btn-pill">Submit</button>
+                    
+                                        </div>
+                                    </div>
+                                    <!-- SUBMIT END -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DETAILS END -->
+
+
+                </div>
+
+        </div>
+        </form>
+
+
+    </div>
+    <!-- CONTAINER END -->
+</div>
+</div>
+<!--app-content close-->
+
+{% include "footer.html" %}
+<script>
+    $('.multi-field-wrapper').each(function () {
+        var $wrapper = $('.multi-fields', this);
+        $(".add-field", $(this)).click(function (e) {
+            $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find(
+                    'input,textarea').val('')
+                .focus();
+        });
+        $('.multi-field .remove-field', $wrapper).click(function () {
+            if ($('.multi-field', $wrapper).length > 1)
+                $(this).parent('.multi-field').remove();
+        });
+    });
+</script>
